@@ -67,9 +67,11 @@
   width: 150px; /* Increase the size of the bike icon */
   height: 120px;
 }
-.record_text{
+
+.record_text {
   margin-bottom: 20px;
 }
+
 .cctvIcon {
   margin-top: auto;
   margin-bottom: 10px;
@@ -103,25 +105,41 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .video-header span {
   font-size: 1.2em;
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.video-header span::after {
+  content: '';
+  display: block;
+  width: 80%; /* 선의 길이를 조금 줄임 */
+  height: 1px;
+  background-color: #fff; /* 선의 색상을 흰색으로 변경 */
+  position: absolute;
+  bottom: -5px; /* Adjust as needed */
+  left: 10%; /* 가운데 정렬을 유지하기 위해 left를 10%로 설정 */
 }
 
 .upload-button {
-  background-color: #444;
-  border: none;
+  background-color: #222;
+  border: 1px solid #555;
   color: white;
-  padding: 10px;
+  padding: 5px 15px;
   font-size: 1em;
   cursor: pointer;
   border-radius: 5px;
   display: inline-block;
+  transition: background-color 0.3s;
 }
 
 .upload-button:hover {
-  background-color: #555;
+  background-color: #333;
 }
 
 .video-container,
