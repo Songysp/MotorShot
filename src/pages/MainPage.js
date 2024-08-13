@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import '../styles/MainPage.css';
 
 import motorcycleIcon from '../assets/images/image.png';
-import helmetIcon from '../assets/images/image copy.png';
-import dangerIcon from '../assets/images/image copy 2.png';
-import speedIcon from '../assets/images/image copy 3.png';
+import helmetIcon from '../assets/images/helmet.png';
+import dangerIcon from '../assets/images/danger.png';
+import speedIcon from '../assets/images/speed.png';
 
 function MainPage() {
   const [currentTime, setCurrentTime] = useState(new Date());
