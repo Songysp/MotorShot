@@ -119,7 +119,7 @@ function VideoAnalysisPage() {
               동영상 업로드 ⬆
             </label>
           </div>
-          <div className="video-container">
+          <div className="video-container-video-page">
             {videoURL ? (
               <video ref={mainVideoRef} className="video-frame" controls>
                 <source src={videoURL} type="video/mp4" />
