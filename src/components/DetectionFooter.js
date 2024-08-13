@@ -18,14 +18,14 @@ function DetectionFooter({ helmetCount, dangerCount, speedCount }) {
             />
             <path
               className="circle helmet"
-              strokeDasharray="75, 100"  // 헬멧미착용 비율에 맞게 수정 => 75% 나타냄 
+              strokeDasharray="75, 100"  // 헬멧미착용 비율에 맞게 수정
               d="M18 2.0845
                  a 15.9155 15.9155 0 0 1 0 31.831
                  a 15.9155 15.9155 0 0 1 0 -31.831"
             />
             <image
               href={helmetIcon}
-              x="10" y="10" height="16px" width="16px" // 중앙에 아이콘 배치
+              x="9" y="9" height="18px" width="18px" // 아이콘 크기 18px로 조정
             />
           </svg>
         </div>
@@ -52,7 +52,7 @@ function DetectionFooter({ helmetCount, dangerCount, speedCount }) {
             />
             <image
               href={dangerIcon}
-              x="10" y="10" height="16px" width="16px" // 중앙에 아이콘 배치
+              x="9" y="9" height="18px" width="18px" // 아이콘 크기 18px로 조정
             />
           </svg>
         </div>
@@ -79,7 +79,7 @@ function DetectionFooter({ helmetCount, dangerCount, speedCount }) {
             />
             <image
               href={speedIcon}
-              x="10" y="10" height="16px" width="16px" // 중앙에 아이콘 배치
+              x="9" y="9" height="18px" width="18px" // 아이콘 크기 18px로 조정
             />
           </svg>
         </div>
@@ -93,3 +93,5 @@ function DetectionFooter({ helmetCount, dangerCount, speedCount }) {
 }
 
 export default DetectionFooter;
+
+
