@@ -1,17 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import '../styles/VideoAnalysisPage.css';
 import sampleImage from '../assets/images/sample_video.png';
-import helmetIcon from '../assets/images/helmet.png'; 
-import dangerIcon from '../assets/images/danger.png'; 
-import speedIcon from '../assets/images/speed.png'; 
-import DetectionFooter from '../components/DetectionFooter'; 
-import DetectedVehicleList from '../components/DetectedVehicleList'; // DetectedVehicleList 컴포넌트 임포트
+import helmetIcon from '../assets/images/helmet.png';
+import dangerIcon from '../assets/images/danger.png';
+import speedIcon from '../assets/images/speed.png';
+import logoImage from '../assets/images/logo.png';
+import recordDBIcon from '../assets/images/Group 46.png';
+import cctvIcon from '../assets/images/Group 65.png';
+import bikeIcon from '../assets/images/image.png';
+import DetectionFooter from '../components/DetectionFooter';
+import DetectedVehicleList from '../components/DetectedVehicleList';
 
 function VideoAnalysisPage() {
   const [uploadedVideo, setUploadedVideo] = useState(null);
   const [videoURL, setVideoURL] = useState('');
-  const navigate = useNavigate();
+  
 
   const mainVideoRef = useRef(null);
   const originalVideoRef = useRef(null);
@@ -56,12 +60,12 @@ function VideoAnalysisPage() {
   const syncVideos = (action) => {
     if (action === 'play') {
       if (originalVideoRef.current) originalVideoRef.current.play();
-      detectionVideoRefs.current.forEach(video => {
+      detectionVideoRefs.current.forEach((video) => {
         if (video) video.play();
       });
     } else if (action === 'pause') {
       if (originalVideoRef.current) originalVideoRef.current.pause();
-      detectionVideoRefs.current.forEach(video => {
+      detectionVideoRefs.current.forEach((video) => {
         if (video) video.pause();
       });
     }
@@ -86,28 +90,32 @@ function VideoAnalysisPage() {
     };
   }, [videoURL]);
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
+  
 
   return (
     <div className="analysis-page">
       <div className="sidebar">
-        <h2>업로드영상 분석</h2>
+        <img src={logoImage} alt="로고" className="logo" />
+        <h2 className="text_1">업로드영상 분석</h2>
         <ul className="record-list">
-          <li>헬멧미착용<br />단속기록</li>
-          <li>위험운전<br />단속기록</li>
-          <li>속도위반<br />단속기록</li>
+          <li className="menu-item">
+            <img src={recordDBIcon} alt="단속기록 DB" className="recordDBIcon" />
+            <span className="record_text">단속기록 DB</span>
+          </li>
+          <li className="menu-item">
+            <img src={cctvIcon} alt="실시간 CCTV 전환" className="cctvIcon" />
+            <span className="cctv_text">실시간 CCTV 전환</span>
+          </li>
         </ul>
-        <button className="cctv-button">실시간 CCTV 전환</button>
-        <button className="back-button" onClick={handleGoBack}>뒤로가기</button>
+        <img src={bikeIcon} alt="오토바이 아이콘" className="bike-icon" />
+        
       </div>
 
       <div className="main-content">
         <div className="video-analysis">
           <div className="video-header">
             <span>영상분석</span>
-            <span>{uploadedVideo ? uploadedVideo : "sample_video.mp4"}</span>
+            <span>{uploadedVideo ? uploadedVideo : 'sample_video.mp4'}</span>
             <input
               type="file"
               accept="video/*"
