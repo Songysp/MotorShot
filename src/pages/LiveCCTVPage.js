@@ -1,24 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate를 import합니다.
 
-import '../styles/VideoAnalysisPage.css';
+import '../styles/LiveCCTVPage.css'; // 새로운 CSS 파일을 import합니다.
 import sampleImage from '../assets/images/sample_video.png';
 import helmetIcon from '../assets/images/helmet.png';
 import dangerIcon from '../assets/images/danger.png';
 import speedIcon from '../assets/images/speed.png';
-import logoImage from '../assets/images/logo.png';
 import recordDBIcon from '../assets/images/Group 46.png';
-import cctvIcon from '../assets/images/Group 65.png';
+import cctvIcon_big from '../assets/images/cctv_big.png';
+import video_small from '../assets/images/video_small.png';
 import bikeIcon from '../assets/images/image.png';
 import DetectionFooter from '../components/DetectionFooter';
 import DetectedVehicleList from '../components/DetectedVehicleList';
 
-function VideoAnalysisPage() {
+function LiveCCTVPage() {
   const [uploadedVideo, setUploadedVideo] = useState(null);
   const [videoURL, setVideoURL] = useState('');
   const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 얻습니다.
   
-
   const mainVideoRef = useRef(null);
   const originalVideoRef = useRef(null);
   const detectionVideoRefs = useRef([]);
@@ -92,33 +91,31 @@ function VideoAnalysisPage() {
     };
   }, [videoURL]);
 
-  const handleCCTVClick = () => {
-    navigate('/live-cctv'); // cctvIcon 클릭 시 '/live-cctv' 경로로 이동합니다.
+  const handleVideoUploadClick = () => {
+    navigate('/analysis'); // video_small 클릭 시 '/analysis' 경로로 이동합니다.
   };
 
-
   return (
-    <div className="analysis-page">
-      <div className="sidebar">
-        <img src={logoImage} alt="로고" className="logo" />
-        <h2 className="text_1">업로드영상 분석</h2>
-        <ul className="record-list">
-          <li className="menu-item">
-            <img src={recordDBIcon} alt="단속기록 DB" className="recordDBIcon" />
-            <span className="record_text">단속기록 DB</span>
-          </li>
-          <li className="menu-item" onClick={handleCCTVClick}> {/* cctvIcon 클릭 시 handleCCTVClick 실행 */}
-            <img src={cctvIcon} alt="실시간 CCTV 전환" className="cctvIcon" />
-            <span className="cctv_text">실시간 CCTV 전환</span>
+    <div className="cctv-analysis-page">
+      <div className="cctv-sidebar">
+        <img src={cctvIcon_big} alt="로고" className="cctv-logo" />
+        <h2 className="cctv-text_1">실시간 CCTV</h2>
+        <ul className="cctv-record-list">
+          <li className="cctv-menu-item">
+            <img src={recordDBIcon} alt="단속기록 DB" className="cctv-recordDBIcon" />
+            <span className="cctv-record_text">단속기록 DB</span>
+          </li> 
+          <li className="cctv-menu-item" onClick={handleVideoUploadClick}> {/* 클릭 시 handleVideoUploadClick 실행 */}
+            <img src={video_small} alt="영상업로드 전환" className="cctv-video_small" />
+            <span className="cctv-cctv_text">영상업로드 전환</span>
           </li>
         </ul>
-        <img src={bikeIcon} alt="오토바이 아이콘" className="bike-icon" />
-        
+        <img src={bikeIcon} alt="오토바이 아이콘" className="cctv-bike-icon" />
       </div>
 
-      <div className="main-content">
-        <div className="video-analysis">
-          <div className="video-header">
+      <div className="cctv-main-content">
+        <div className="cctv-video-analysis">
+          <div className="cctv-video-header">
             <span>영상분석</span>
             <span>{uploadedVideo ? uploadedVideo : 'sample_video.mp4'}</span>
             <input
@@ -128,20 +125,20 @@ function VideoAnalysisPage() {
               id="file-upload"
               onChange={handleFileChange}
             />
-            <label htmlFor="file-upload" className="upload-button">
+            <label htmlFor="file-upload" className="cctv-upload-button">
               동영상 업로드 ⬆
             </label>
           </div>
-          <div className="video-container-video-page">
+          <div className="cctv-video-container-video-page">
             {videoURL ? (
-              <video ref={mainVideoRef} className="video-frame" controls>
+              <video ref={mainVideoRef} className="cctv-video-frame" controls>
                 <source src={videoURL} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img src={sampleImage} alt="Sample Video" className="video-frame" />
+              <img src={sampleImage} alt="Sample Video" className="cctv-video-frame" />
             )}
-            <div className="video-controls">
+            <div className="cctv-video-controls">
               <button onClick={() => mainVideoRef.current && mainVideoRef.current.play()}>◀</button>
               <button onClick={() => mainVideoRef.current && mainVideoRef.current.pause()}>⏸</button>
               <button onClick={() => mainVideoRef.current && mainVideoRef.current.play()}>▶</button>
@@ -151,16 +148,16 @@ function VideoAnalysisPage() {
           <DetectionFooter helmetCount={'04'} dangerCount={'01'} speedCount={2} />
         </div>
 
-        <div className="right-sidebar">
-          <div className="video-thumbnail">
+        <div className="cctv-right-sidebar">
+          <div className="cctv-video-thumbnail">
             <h3>원본영상</h3>
             {videoURL ? (
-              <video ref={originalVideoRef} className="thumbnail" controls>
+              <video ref={originalVideoRef} className="cctv-thumbnail" controls>
                 <source src={videoURL} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img src={sampleImage} alt="Original Video" className="thumbnail" />
+              <img src={sampleImage} alt="Original Video" className="cctv-thumbnail" />
             )}
           </div>
           <DetectedVehicleList 
@@ -174,4 +171,4 @@ function VideoAnalysisPage() {
   );
 }
 
-export default VideoAnalysisPage;
+export default LiveCCTVPage;
