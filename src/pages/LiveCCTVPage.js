@@ -72,7 +72,7 @@ function LiveCCTVPage() {
         <img src={cctvIcon_big} alt="로고" className="cctv-logo" />
         <h2 className="cctv-text_1">실시간 CCTV</h2>
         <ul className="cctv-record-list">
-          <li className="cctv-menu-item">
+          <li className="cctv-menu-item" onClick={() => navigate('/record-db')}> {/* 클릭 시 navigate 사용 */}
             <img src={recordDBIcon} alt="단속기록 DB" className="cctv-recordDBIcon" />
             <span className="cctv-record_text">단속기록 DB</span>
           </li>

@@ -77,6 +77,7 @@
   margin-bottom: 10px;
   width: 100px;
   height: 95px;
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 .cctv-recordDBIcon {
@@ -84,6 +85,7 @@
   margin-bottom: 15px;
   width: 75px;
   height: 90px;
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 .cctv-main-content {

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate를 import합니다.
-
 import '../styles/VideoAnalysisPage.css';
 import sampleImage from '../assets/images/sample_video.png';
 import helmetIcon from '../assets/images/helmet.png';
@@ -17,8 +16,6 @@ function VideoAnalysisPage() {
   const [uploadedVideo, setUploadedVideo] = useState(null);
   const [videoURL, setVideoURL] = useState('');
   const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 얻습니다.
-  
-
   const mainVideoRef = useRef(null);
   const originalVideoRef = useRef(null);
   const detectionVideoRefs = useRef([]);
@@ -103,7 +100,7 @@ function VideoAnalysisPage() {
         <img src={logoImage} alt="로고" className="logo" />
         <h2 className="text_1">업로드영상 분석</h2>
         <ul className="record-list">
-          <li className="menu-item">
+          <li className="menu-item" onClick={() => navigate('/record-db')}> {/* 클릭 시 navigate 사용 */}
             <img src={recordDBIcon} alt="단속기록 DB" className="recordDBIcon" />
             <span className="record_text">단속기록 DB</span>
           </li>

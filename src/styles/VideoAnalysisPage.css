@@ -77,6 +77,7 @@
   margin-bottom: 10px;
   width: 100px; /* Increase the size of the bike icon */
   height: 95px;
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 .recordDBIcon {
@@ -84,6 +85,7 @@
   margin-bottom: 15px;
   width: 75px; /* Increase the size of the bike icon */
   height: 90px;
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 .main-content {

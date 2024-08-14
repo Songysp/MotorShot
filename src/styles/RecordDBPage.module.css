@@ -1,0 +1,168 @@
+.recordDbPage {
+  display: flex;
+  height: 100vh;
+  background-color: #111;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 12%;  /* Adjusted width to match the desired layout */
+  background-color: #1c1c1c;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.recordDBIcon {
+  margin-top: 30px;  /* Adjusted margin */
+  width: 110px;  /* Adjusted size */
+  height: 110px; /* Fixed height to maintain aspect ratio */
+}
+
+.text_1 {
+  font-size: 1.5em;  /* Increased font size */
+  margin-top: -250px;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.text_1::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+  margin: 10px auto 0 auto;
+}
+
+.bottomSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.backButton {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 30px;  /* Adjusted margin */
+  cursor: pointer;  /* Add cursor pointer */
+}
+
+.bikeIcon {
+  width: 70px;  /* Adjusted size */
+  height: 70px; /* Adjusted height */
+  margin-top: auto;  /* Adjusted to push the icon to the bottom */
+  margin-bottom: 30px; /* Adjusted to add space at the bottom */
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.headerIcons img {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+}
+
+.recordTable {
+  margin-bottom: 20px;
+}
+
+.recordTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recordTable th,
+.recordTable td {
+  padding: 10px;
+  border: 1px solid #333;
+  text-align: center;
+}
+
+.recordTable tr:hover {
+  background-color: #222;
+  cursor: pointer;
+}
+
+.detailCard {
+  display: flex;
+  background-color: #222;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.detailImage {
+  width: 150px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.detailInfo h3 {
+  margin-top: 0;
+}
+
+.thumbnails {
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.thumbnail {
+  margin-right: 10px;
+  text-align: center;
+}
+
+.thumbnailImage {
+  width: 60px;
+  height: auto;
+}
+
+.statusIcon {
+  width: 24px;
+  height: auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+}
+
+.statItem img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.statProgress {
+  width: 80px;
+  height: 10px;
+  background-color: #333;
+  margin-right: 10px;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: #4CAF50;
+}
