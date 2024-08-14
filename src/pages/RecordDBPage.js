@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // useNavigate를 import합니다.
 import styles from '../styles/RecordDBPage.module.css';
 import recordDBIcon from '../assets/images/Group 46.png';
 import backIcon from '../assets/images/Group 60.png';
+import cctvIcon_Small from '../assets/images/Group 65.png';
+import video_small from '../assets/images/video_small.png';
 import bikeIcon from '../assets/images/image.png';
 import helmetIcon from '../assets/images/helmet.png';
 import dangerIcon from '../assets/images/danger.png';
@@ -12,6 +15,7 @@ import DetectedVehicleList from '../components/DetectedVehicleList';
 
 function RecordDBPage() {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 얻습니다.
 
   const detectedVehicles = [
     { id: '0001', type: '헬멧미착용', licensePlate: '경기성남 가1234', time: '2024-08-08 18:06:34', image: sampleImage, icon: 'helmetIcon' },
@@ -50,9 +54,18 @@ function RecordDBPage() {
   const dangerCount = detectedVehicles.filter(v => v.type === '위험운전').length;
   const speedCount = detectedVehicles.filter(v => v.type === '속도위반').length;
 
+  const handleCCTVClick = () => {
+    navigate('/live-cctv'); // cctvIcon 클릭 시 '/live-cctv' 경로로 이동합니다.
+  };
+
+  const handleVideoUploadClick = () => {
+    navigate('/analysis'); // 영상업로드 전환 버튼 클릭 시 '/analysis' 경로로 이동합니다.
+  };
+
+
   return (
     <div className={styles.recordDbPage}>
-      <div className={styles.sidebar}>
+      {/* <div className={styles.sidebar}>
         <img src={recordDBIcon} alt="단속기록 DB" className={styles.recordDBIcon} />
         <h2 className={styles.text_1}>단속기록 DB</h2>
 
@@ -60,6 +73,22 @@ function RecordDBPage() {
           <img src={backIcon} alt="뒤로가기" className={styles.backButton} />
           <img src={bikeIcon} alt="오토바이 아이콘" className={styles.bikeIcon} />
         </div>
+      </div> */}
+
+      <div className="db-sidebar">
+        <img src={recordDBIcon} alt="로고" className="db-logo" />
+        <h2 className="db-text_1">단속기록 DB</h2>
+        <ul className="db-record-list">
+          <li className="db-menu-item" onClick={handleCCTVClick}>
+            <img src={cctvIcon_Small} alt="단속기록 DB" className="db-recordDBIcon" />
+            <span className="db-record_text">실시간 CCTV</span>
+          </li>
+          <li className="db-menu-item" onClick={handleVideoUploadClick}>
+            <img src={video_small} alt="영상업로드 전환" className="db-video_small" />
+            <span className="db-db_text">영상업로드 전환</span>
+          </li>
+        </ul>
+        <img src={bikeIcon} alt="오토바이 아이콘" className="db-bike-icon" />
       </div>
 
       <div className={styles.mainContent}>
@@ -118,7 +147,7 @@ function RecordDBPage() {
           ))}
         </div> */}
 
-        
+
 
         {/* DetectionFooter 컴포넌트를 사용하여 데이터를 전달 */}
         <DetectionFooter helmetCount={helmetCount} dangerCount={dangerCount} speedCount={speedCount} />
@@ -126,15 +155,18 @@ function RecordDBPage() {
 
       {/* DetectedVehicleList를 추가할 부분 */}
       <div className={styles.rightSidebar}>
-          <DetectedVehicleList
-            detectedVehicles={detectedVehicles}
-            detectionVideoRefs={[]}
-            sampleImage={sampleImage}
-          />
-        </div>
+        <DetectedVehicleList
+          detectedVehicles={detectedVehicles}
+          detectionVideoRefs={[]}
+          sampleImage={sampleImage}
+        />
+      </div>
 
     </div>
   );
 }
 
 export default RecordDBPage;
+
+
+
