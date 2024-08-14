@@ -82,6 +82,8 @@
 
 .recordTable {
   margin-bottom: 20px;
+  /* max-height: 500px; */
+  display: flex;
 }
 
 .recordTable table {
@@ -139,30 +141,53 @@
   height: auto;
 }
 
-.footer {
-  display: flex;
-  justify-content: space-around;
+/* 아래는 새로 추가된 부분입니다 */
+
+.rightSidebar {
+  width: 300px;
+  height: 100%;
+  padding: 10px;
+  background-color: #1c1c1c;
+  color: white;
+  overflow-y: scroll;
+  float: right;
 }
 
-.statItem {
-  display: flex;
-  align-items: center;
+.vehicle-detection-summary {
+  padding: 10px;
 }
 
-.statItem img {
+.vehicle-detection-item {
+  margin-bottom: 20px;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.vehicle-video-container {
+  position: relative;
+}
+
+.vehicle-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+}
+
+.vehicle-icon {
   width: 24px;
   height: 24px;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
-.statProgress {
-  width: 80px;
-  height: 10px;
-  background-color: #333;
-  margin-right: 10px;
+.vehicle-license,
+.vehicle-time {
+  margin: 0;
 }
 
-.progressBar {
-  height: 100%;
-  background-color: #4CAF50;
+.vehicle-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
 }

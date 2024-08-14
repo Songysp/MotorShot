@@ -42,6 +42,14 @@ function LiveCCTVPage() {
       time: '2024-08-10 22:06:15',
       video: cctvVideoURL,
     },
+    {
+      id: 4,
+      type: '과속운전',
+      icon: speedIcon,
+      licensePlate: '라9101',
+      time: '2024-08-10 22:06:15',
+      video: cctvVideoURL,
+    },
   ];
 
   useEffect(() => {
