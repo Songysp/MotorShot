@@ -15,6 +15,7 @@ import DetectedVehicleList from '../components/DetectedVehicleList';
 
 function RecordDBPage() {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   const detectedVehicles = [
@@ -26,6 +27,10 @@ function RecordDBPage() {
     { id: '0006', type: '위험운전', licensePlate: '서울서초 라9834', time: '2024-08-08 20:06:01', image: sampleImage, icon: 'dangerIcon' },
     { id: '0007', type: '헬멧미착용', licensePlate: '서울강남 마1254', time: '2024-08-08 22:34:44', image: sampleImage, icon: 'helmetIcon' },
   ];
+
+  const filteredVehicles = detectedVehicles.filter(vehicle =>
+    vehicle.licensePlate.includes(searchQuery)
+  );
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -69,10 +74,19 @@ function RecordDBPage() {
       <div className={styles.mainContent}>
         <div className={styles.header}>
           <h2>sample_video.mp4</h2>
-          <div className={styles.headerIcons}>
-            <img src={helmetIcon} alt="Helmet" />
-            <img src={dangerIcon} alt="Danger" />
-            <img src={speedIcon} alt="Speed" />
+          <div className={styles.headerRight}>
+            <input
+              type="text"
+              placeholder="차량번호 검색"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={styles.searchInput}
+            />
+            <div className={styles.headerIcons}>
+              <img src={helmetIcon} alt="Helmet" />
+              <img src={dangerIcon} alt="Danger" />
+              <img src={speedIcon} alt="Speed" />
+            </div>
           </div>
         </div>
 
@@ -88,7 +102,7 @@ function RecordDBPage() {
               </tr>
             </thead>
             <tbody>
-              {detectedVehicles.map((vehicle) => (
+              {filteredVehicles.map((vehicle) => (
                 <tr key={vehicle.id} onClick={() => setSelectedVehicle(vehicle)}>
                   <td>{vehicle.id}</td>
                   <td>{vehicle.type}</td>
@@ -100,6 +114,15 @@ function RecordDBPage() {
             </tbody>
           </table>
         </div>
+
+        {selectedVehicle && (
+          <div className={styles.selectedVehicleInfo}>
+            <h3>단속번호: {selectedVehicle.id}</h3>
+            <p>유형: {selectedVehicle.type}</p>
+            <p>차량번호: {selectedVehicle.licensePlate}</p>
+            <p>시간: {selectedVehicle.time}</p>
+          </div>
+        )}
 
         <DetectionFooter helmetCount={helmetCount} dangerCount={dangerCount} speedCount={speedCount} />
       </div>
