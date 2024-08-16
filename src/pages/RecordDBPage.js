@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/RecordDBPage.module.css';
-import recordDBIcon from '../assets/images/Group 46.png';
-
-import cctvIcon_Small from '../assets/images/Group 65.png';
+import recordDBIcon from '../assets/images/db.png';
+import cctvIcon_Small from '../assets/images/cctv_small.png';
 import video_small from '../assets/images/video_small.png';
-import bikeIcon from '../assets/images/image.png';
+import bikeIcon from '../assets/images/motorcycle.png';
 import helmetIcon from '../assets/images/helmet.png';
 import dangerIcon from '../assets/images/danger.png';
 import speedIcon from '../assets/images/speed.png';
@@ -26,17 +25,24 @@ function RecordDBPage() {
     { id: '0005', type: '위험운전', licensePlate: '경기기흥 가1030', time: '2024-08-08 19:46:24', image: sampleImage, icon: 'dangerIcon' },
     { id: '0006', type: '위험운전', licensePlate: '서울서초 라9834', time: '2024-08-08 20:06:01', image: sampleImage, icon: 'dangerIcon' },
     { id: '0007', type: '헬멧미착용', licensePlate: '서울강남 마1254', time: '2024-08-08 22:34:44', image: sampleImage, icon: 'helmetIcon' },
+    { id: '0001', type: '헬멧미착용', licensePlate: '경기성남 가1234', time: '2024-08-08 18:06:34', image: sampleImage, icon: 'helmetIcon' },
+    { id: '0002', type: '속도위반', licensePlate: '경기성남 나1134', time: '2024-08-08 18:17:14', image: sampleImage, icon: 'speedIcon' },
+    { id: '0003', type: '헬멧미착용', licensePlate: '서울강남 가0232', time: '2024-08-08 18:58:04', image: sampleImage, icon: 'helmetIcon' },
+    { id: '0004', type: '헬멧미착용', licensePlate: '충남아산 다1114', time: '2024-08-08 19:10:38', image: sampleImage, icon: 'helmetIcon' },
+    { id: '0005', type: '위험운전', licensePlate: '경기기흥 가1030', time: '2024-08-08 19:46:24', image: sampleImage, icon: 'dangerIcon' },
+    { id: '0006', type: '위험운전', licensePlate: '서울서초 라9834', time: '2024-08-08 20:06:01', image: sampleImage, icon: 'dangerIcon' },
+    { id: '0007', type: '헬멧미착용', licensePlate: '서울강남 마1254', time: '2024-08-08 22:34:44', image: sampleImage, icon: 'helmetIcon' },
   ];
 
   const filteredVehicles = detectedVehicles.filter(vehicle =>
     vehicle.licensePlate.includes(searchQuery)
   );
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'normal': return helmetIcon;
-      case 'warning': return dangerIcon;
-      case 'danger': return speedIcon;
+  const getStatusIcon = (icon) => {
+    switch (icon) {
+      case 'helmetIcon': return helmetIcon;
+      case 'dangerIcon': return dangerIcon;
+      case 'speedIcon': return speedIcon;
       default: return helmetIcon;
     }
   };
@@ -108,7 +114,7 @@ function RecordDBPage() {
                   <td>{vehicle.type}</td>
                   <td>{vehicle.licensePlate}</td>
                   <td>{vehicle.time}</td>
-                  <td><img src={getStatusIcon(vehicle.status)} alt={vehicle.status} className={styles.statusIcon} /></td>
+                  <td><img src={getStatusIcon(vehicle.icon)} alt={vehicle.status} className={styles.statusIcon} /></td>
                 </tr>
               ))}
             </tbody>

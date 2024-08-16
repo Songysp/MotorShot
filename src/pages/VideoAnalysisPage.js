@@ -5,10 +5,10 @@ import sampleImage from '../assets/images/sample_video.png';
 import helmetIcon from '../assets/images/helmet.png';
 import dangerIcon from '../assets/images/danger.png';
 import speedIcon from '../assets/images/speed.png';
-import logoImage from '../assets/images/logo.png';
-import recordDBIcon from '../assets/images/Group 46.png';
-import cctvIcon from '../assets/images/Group 65.png';
-import bikeIcon from '../assets/images/image.png';
+import video from '../assets/images/video_big.png';
+import recordDBIcon from '../assets/images/db.png';
+import cctvIcon from '../assets/images/cctv_small.png';
+import bikeIcon from '../assets/images/motorcycle.png';
 import DetectionFooter from '../components/DetectionFooter';
 import DetectedVehicleList from '../components/DetectedVehicleList';
 
@@ -105,7 +105,7 @@ function VideoAnalysisPage() {
   return (
     <div className="analysis-page">
       <div className="sidebar">
-        <img src={logoImage} alt="로고" className="logo" />
+        <img src={video} alt="로고" className="logo" />
         <h2 className="text_1">업로드영상 분석</h2>
         <ul className="record-list">
           <li className="menu-item" onClick={() => navigate('/record-db')}> {/* 클릭 시 navigate 사용 */}

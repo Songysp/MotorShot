@@ -6,10 +6,10 @@ import sampleImage from '../assets/images/sample_video.png';
 import helmetIcon from '../assets/images/helmet.png';
 import dangerIcon from '../assets/images/danger.png';
 import speedIcon from '../assets/images/speed.png';
-import recordDBIcon from '../assets/images/Group 46.png';
+import recordDBIcon from '../assets/images/db.png';
 import cctvIcon_big from '../assets/images/cctv_big.png';
 import video_small from '../assets/images/video_small.png';
-import bikeIcon from '../assets/images/image.png';
+import bikeIcon from '../assets/images/motorcycle.png';
 import DetectionFooter from '../components/DetectionFooter';
 import DetectedVehicleList from '../components/DetectedVehicleList';
 

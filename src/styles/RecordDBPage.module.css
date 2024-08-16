@@ -69,6 +69,7 @@
   width: 80px;  /* 크기 조정 */
   height: 80px;
   margin-bottom: 10px;
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 .bikeIcon {
@@ -155,7 +156,7 @@
 }
 
 .rightSidebar {
-  width: 300px;
+  width: 550px;
   height: 100%;
   padding: 10px;
   background-color: #1c1c1c;

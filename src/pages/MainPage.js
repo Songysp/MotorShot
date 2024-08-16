@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/MainPage.css';
-
-import motorcycleIcon from '../assets/images/image.png';
+import motorcycleIcon from '../assets/images/motorcycle.png';
 import helmetIcon from '../assets/images/helmet.png';
 import dangerIcon from '../assets/images/danger.png';
 import speedIcon from '../assets/images/speed.png';
