@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate를 import합니다.
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/RecordDBPage.module.css';
 import recordDBIcon from '../assets/images/Group 46.png';
-import backIcon from '../assets/images/Group 60.png';
+
 import cctvIcon_Small from '../assets/images/Group 65.png';
 import video_small from '../assets/images/video_small.png';
 import bikeIcon from '../assets/images/image.png';
@@ -15,7 +15,7 @@ import DetectedVehicleList from '../components/DetectedVehicleList';
 
 function RecordDBPage() {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 얻습니다.
+  const navigate = useNavigate();
 
   const detectedVehicles = [
     { id: '0001', type: '헬멧미착용', licensePlate: '경기성남 가1234', time: '2024-08-08 18:06:34', image: sampleImage, icon: 'helmetIcon' },
@@ -25,21 +25,8 @@ function RecordDBPage() {
     { id: '0005', type: '위험운전', licensePlate: '경기기흥 가1030', time: '2024-08-08 19:46:24', image: sampleImage, icon: 'dangerIcon' },
     { id: '0006', type: '위험운전', licensePlate: '서울서초 라9834', time: '2024-08-08 20:06:01', image: sampleImage, icon: 'dangerIcon' },
     { id: '0007', type: '헬멧미착용', licensePlate: '서울강남 마1254', time: '2024-08-08 22:34:44', image: sampleImage, icon: 'helmetIcon' },
-
-
-
-
-
-    { id: '0001', type: '헬멧미착용', licensePlate: '경기성남 가1234', time: '2024-08-08 18:06:34', image: sampleImage, status: 'normal' },
-    { id: '0002', type: '속도위반', licensePlate: '경기성남 나1134', time: '2024-08-08 18:17:14', image: sampleImage, status: 'danger' },
-    { id: '0003', type: '헬멧미착용', licensePlate: '서울강남 가0232', time: '2024-08-08 18:58:04', image: sampleImage, status: 'normal' },
-    { id: '0004', type: '헬멧미착용', licensePlate: '충남아산 다1114', time: '2024-08-08 19:10:38', image: sampleImage, status: 'normal' },
-    { id: '0005', type: '위험운전', licensePlate: '경기기흥 가1030', time: '2024-08-08 19:46:24', image: sampleImage, status: 'warning' },
-    { id: '0006', type: '위험운전', licensePlate: '서울서초 라9834', time: '2024-08-08 20:06:01', image: sampleImage, status: 'warning' },
-    { id: '0007', type: '헬멧미착용', licensePlate: '서울강남 마1254', time: '2024-08-08 22:34:44', image: sampleImage, status: 'normal' },
   ];
 
-  // getStatusIcon 함수 정의
   const getStatusIcon = (status) => {
     switch (status) {
       case 'normal': return helmetIcon;
@@ -49,46 +36,34 @@ function RecordDBPage() {
     }
   };
 
-  // 각 상태의 개수를 계산
   const helmetCount = detectedVehicles.filter(v => v.type === '헬멧미착용').length;
   const dangerCount = detectedVehicles.filter(v => v.type === '위험운전').length;
   const speedCount = detectedVehicles.filter(v => v.type === '속도위반').length;
 
   const handleCCTVClick = () => {
-    navigate('/live-cctv'); // cctvIcon 클릭 시 '/live-cctv' 경로로 이동합니다.
+    navigate('/live-cctv');
   };
 
   const handleVideoUploadClick = () => {
-    navigate('/analysis'); // 영상업로드 전환 버튼 클릭 시 '/analysis' 경로로 이동합니다.
+    navigate('/analysis');
   };
-
 
   return (
     <div className={styles.recordDbPage}>
-      {/* <div className={styles.sidebar}>
-        <img src={recordDBIcon} alt="단속기록 DB" className={styles.recordDBIcon} />
-        <h2 className={styles.text_1}>단속기록 DB</h2>
-
-        <div className={styles.bottomSection}>
-          <img src={backIcon} alt="뒤로가기" className={styles.backButton} />
-          <img src={bikeIcon} alt="오토바이 아이콘" className={styles.bikeIcon} />
-        </div>
-      </div> */}
-
-      <div className="db-sidebar">
-        <img src={recordDBIcon} alt="로고" className="db-logo" />
-        <h2 className="db-text_1">단속기록 DB</h2>
-        <ul className="db-record-list">
-          <li className="db-menu-item" onClick={handleCCTVClick}>
-            <img src={cctvIcon_Small} alt="단속기록 DB" className="db-recordDBIcon" />
-            <span className="db-record_text">실시간 CCTV</span>
+      <div className={styles.sidebar}>
+        <img src={recordDBIcon} alt="로고" className={styles.logo} />
+        <h2 className={styles.dbTitle}>단속기록 DB</h2>
+        <ul className={styles.recordList}>
+          <li className={styles.menuItem} onClick={handleCCTVClick}>
+            <img src={cctvIcon_Small} alt="단속기록 DB" className={styles.menuIcon} />
+            <span className={styles.cctvText}>실시간 CCTV</span>
           </li>
-          <li className="db-menu-item" onClick={handleVideoUploadClick}>
-            <img src={video_small} alt="영상업로드 전환" className="db-video_small" />
-            <span className="db-db_text">영상업로드 전환</span>
+          <li className={styles.menuItem} onClick={handleVideoUploadClick}>
+            <img src={video_small} alt="영상업로드 전환" className={styles.menuIcon} />
+            <span className={styles.uploadText}>영상업로드 전환</span>
           </li>
         </ul>
-        <img src={bikeIcon} alt="오토바이 아이콘" className="db-bike-icon" />
+        <img src={bikeIcon} alt="오토바이 아이콘" className={styles.bikeIcon} />
       </div>
 
       <div className={styles.mainContent}>
@@ -126,34 +101,9 @@ function RecordDBPage() {
           </table>
         </div>
 
-        {/* {selectedVehicle && (
-          <div className={styles.detailCard}>
-            <img src={selectedVehicle.image} alt="Selected vehicle" className={styles.detailImage}/>
-            <div className={styles.detailInfo}>
-              <h3>{selectedVehicle.type}</h3>
-              <p>{selectedVehicle.id}</p>
-              <p>{selectedVehicle.licensePlate}</p>
-              <p>{selectedVehicle.time}</p>
-            </div>
-          </div>
-        )}
-
-        <div className={styles.thumbnails}>
-          {detectedVehicles.map((vehicle) => (
-            <div key={vehicle.id} className={styles.thumbnail}>
-              <img src={vehicle.image} alt={vehicle.licensePlate} className={styles.thumbnailImage}/>
-              <p>{vehicle.id}</p>
-            </div>
-          ))}
-        </div> */}
-
-
-
-        {/* DetectionFooter 컴포넌트를 사용하여 데이터를 전달 */}
         <DetectionFooter helmetCount={helmetCount} dangerCount={dangerCount} speedCount={speedCount} />
       </div>
 
-      {/* DetectedVehicleList를 추가할 부분 */}
       <div className={styles.rightSidebar}>
         <DetectedVehicleList
           detectedVehicles={detectedVehicles}
@@ -161,12 +111,8 @@ function RecordDBPage() {
           sampleImage={sampleImage}
         />
       </div>
-
     </div>
   );
 }
 
 export default RecordDBPage;
-
-
-

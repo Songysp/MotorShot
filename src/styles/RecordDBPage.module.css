@@ -7,96 +7,8 @@
   overflow: hidden;
 }
 
-
-
-.db-sidebar {
-  width: 15%;
-  background-color: #1c1c1c;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.db-logo {
-  margin-top: 30px;
-  width: 100px;
-  margin-bottom: 20px;
-}
-
-.db-sidebar h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  color: white;
-  text-align: center;
-  position: relative;
-}
-
-.db-sidebar h2::after {
-  content: '';
-  display: block;
-  width: 110%;
-  height: 1px;
-  background-color: white;
-  margin: 10px auto 20px -10px;
-}
-
-.db-record-list {
-  list-style-type: none;
-  padding: 0;
-  font-size: 1em;
-  text-align: center;
-  margin-bottom: 30px;
-  width: 100%;
- ;
-}
-
-.db-menu-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-
-}
-
-.db-menu-icon {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 5px;
-}
-
-.db-bike-icon {
-  margin-top: 60%;
-  width: 150px;
-  height: 120px;
-}
-
-.db-record_text {
-  margin-bottom: 20px;
-}
-
-.db-video_small {
-  margin-top: auto;
-  margin-bottom: 10px;
-  width: 100px;
-  height: 95px;
-  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
-}
-
-.db-recordDBIcon {
-  margin-top: auto;
-  margin-bottom: 15px;
-  width: 75px;
-  height: 90px;
-  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
-}
-
-
-
-
 .sidebar {
-  width: 12%;  /* Adjusted width to match the desired layout */
+  width: 15%;
   background-color: #1c1c1c;
   padding: 20px;
   display: flex;
@@ -105,48 +17,64 @@
   justify-content: space-between;
 }
 
-.recordDBIcon {
-  margin-top: 30px;  /* Adjusted margin */
-  width: 110px;  /* Adjusted size */
-  height: 110px; /* Fixed height to maintain aspect ratio */
+.logo {
+  margin-top: 30px;
+  width: 110px;
+  height: 120px;
+  margin-bottom: -80px; /* recordDBIcon 아래에 위치 */
 }
 
-.text_1 {
-  font-size: 1.5em;  /* Increased font size */
-  margin-top: -250px;
+.dbTitle {
+  font-size: 1.8em;  /* 글씨 더 크게 */
   color: white;
   text-align: center;
+  margin-bottom: 30px;
   position: relative;
 }
 
-.text_1::after {
+.dbTitle::after {
   content: '';
   display: block;
   width: 100%;
-  height: 1px;
-  background-color: #333;
+  height: 2px; /* 하얀색 선 추가 */
+  background-color: white;
   margin: 10px auto 0 auto;
 }
 
-.bottomSection {
+.cctvText, .uploadText {
+  font-size: 1.2em;  /* 글씨 크기 더 크게 */
+  margin-top: 10px;  /* 텍스트 위치 조정 */
+  color: white;
+  text-align: center;
+}
+
+.recordList {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1em;
+  text-align: center;
+  margin-bottom: 30px;
   width: 100%;
+}
+
+.menuItem {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;  /* 아이템 사이 간격 조정 */
 }
 
-.backButton {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 30px;  /* Adjusted margin */
-  cursor: pointer;  /* Add cursor pointer */
+.menuIcon {
+  width: 70px;  /* 크기 조정 */
+  height: 70px;
+  margin-bottom: 10px;
 }
 
 .bikeIcon {
-  width: 70px;  /* Adjusted size */
-  height: 70px; /* Adjusted height */
-  margin-top: auto;  /* Adjusted to push the icon to the bottom */
-  margin-bottom: 30px; /* Adjusted to add space at the bottom */
+  margin-top: 20px;  /* 위치 조정 */
+  width: 160px;  /* 크기 조정 */
+  height: 140px;
 }
 
 .mainContent {
@@ -172,7 +100,6 @@
   margin-bottom: 20px;
   max-height: 500px;
   overflow-y: scroll;
-  display: flex;
 }
 
 .recordTable table {
@@ -192,45 +119,10 @@
   cursor: pointer;
 }
 
-.detailCard {
-  display: flex;
-  background-color: #222;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.detailImage {
-  width: 150px;
-  height: auto;
-  margin-right: 20px;
-}
-
-.detailInfo h3 {
-  margin-top: 0;
-}
-
-.thumbnails {
-  display: flex;
-  overflow-x: auto;
-  margin-bottom: 20px;
-}
-
-.thumbnail {
-  margin-right: 10px;
-  text-align: center;
-}
-
-.thumbnailImage {
-  width: 60px;
-  height: auto;
-}
-
 .statusIcon {
   width: 24px;
   height: auto;
 }
-
-/* 아래는 새로 추가된 부분입니다 */
 
 .rightSidebar {
   width: 300px;
@@ -240,43 +132,4 @@
   color: white;
   overflow-y: scroll;
   float: right;
-}
-
-.vehicle-detection-summary {
-  padding: 10px;
-}
-
-.vehicle-detection-item {
-  margin-bottom: 20px;
-  background-color: #333;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.vehicle-video-container {
-  position: relative;
-}
-
-.vehicle-overlay {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: white;
-}
-
-.vehicle-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 5px;
-}
-
-.vehicle-license,
-.vehicle-time {
-  margin: 0;
-}
-
-.vehicle-thumbnail {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
 }
