@@ -8,35 +8,37 @@
 }
 
 .cctv-sidebar {
-  width: 15%;
-  background-color: #1c1c1c;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 15%; /* 사이드바의 너비를 15%로 설정 */
+  background-color: #1c1c1c; /* 배경색을 어두운 회색으로 설정 */
+  padding: 20px; /* 사이드바 내부의 모든 요소에 20px의 여백을 줌 */
+  display: flex; /* 플렉스 박스로 설정 */
+  flex-direction: column; /* 요소들을 세로로 정렬 */
+  align-items: center; /* 요소들을 중앙에 정렬 */
+  justify-content: space-between; /* 요소들 간의 공간을 균등하게 배분 */
 }
 
 .cctv-logo {
   margin-top: 30px;
-  width: 100px;
-  margin-bottom: 20px;
+  width: 110px;
+  height: 120px;
+  margin-bottom: -80px; /* cctvIcon_big 아래에 위치 */
 }
 
 .cctv-sidebar h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 1.8em;  /* 글씨 더 크게 */
   color: white;
   text-align: center;
+  margin-bottom: 30px;
   position: relative;
 }
 
 .cctv-sidebar h2::after {
   content: '';
   display: block;
-  width: 110%;
-  height: 1px;
+  width: 100%;
+  height: 2px; /* 하얀색 선 추가 */
   background-color: white;
-  margin: 10px auto 20px -10px;
+  margin: 10px auto 0 auto;
 }
 
 .cctv-record-list {
@@ -53,39 +55,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;  /* 아이템 사이 간격 조정 */
 }
 
-.cctv-menu-icon {
-  width: 50px;
-  height: 50px;
-  margin-bottom: 5px;
+.cctv-recordDBIcon,
+.cctv-video_small {
+  width: 80px;  /* 크기 조정 */
+  height: 80px;
+  margin-bottom: 10px;
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 .cctv-bike-icon {
-  margin-top: 60%;
-  width: 150px;
-  height: 120px;
+  margin-top: 20px;  /* 위치 조정 */
+  width: 160px;  /* 크기 조정 */
+  height: 140px;
 }
 
-.cctv-record_text {
-  margin-bottom: 20px;
-}
-
-.cctv-video_small {
-  margin-top: auto;
-  margin-bottom: 10px;
-  width: 100px;
-  height: 95px;
-  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
-}
-
-.cctv-recordDBIcon {
-  margin-top: auto;
-  margin-bottom: 15px;
-  width: 75px;
-  height: 90px;
-  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+.cctv-text_1, 
+.cctv-record_text, 
+.cctv-cctv_text {
+  font-size: 1.4em;  /* 글씨 크기 더 크게 */
+  margin-top: 10px;  /* 텍스트 위치 조정 */
+  color: white;
+  text-align: center;
 }
 
 .cctv-main-content {
@@ -128,22 +121,6 @@
   left: 10%;
 }
 
-.cctv-upload-button {
-  background-color: #222;
-  border: 1px solid #555;
-  color: white;
-  padding: 5px 15px;
-  font-size: 1em;
-  cursor: pointer;
-  border-radius: 5px;
-  display: inline-block;
-  transition: background-color 0.3s;
-}
-
-.cctv-upload-button:hover {
-  background-color: #333;
-}
-
 .cctv-video-container,
 .cctv-video-container-video-page {
   position: relative;
@@ -162,14 +139,6 @@
   border-radius: 10px;
 }
 
-.cctv-video-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  font-size: 1.2em;
-}
-
 .cctv-right-sidebar {
   display: flex;
   flex-direction: column;
@@ -186,62 +155,6 @@
   width: 100%;
   border-radius: 5px;
   margin-bottom: 10px;
-}
-
-.cctv-detection-summary {
-  flex: 2;
-  overflow-y: auto;
-  background-color: #1c1c1c;
-  padding: 20px;
-}
-
-.cctv-detection-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  background-color: #2c2c2c;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.cctv-detection-info {
-  margin-left: 10px;
-  color: white;
-}
-
-.cctv-detection-info p {
-  margin: 0;
-  font-size: 0.9em;
-}
-
-.cctv-footer,
-.cctv-detection-footer {
-  background-color: #1c1c1c;
-  padding: 20px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 10px;
-}
-
-.cctv-detection-footer .cctv-detection-summary {
-  text-align: center;
-  flex: 1;
-  margin: 0 10px;
-}
-
-.cctv-detection-footer p {
-  margin: 5px 0;
-  font-size: 1.2em;
-}
-
-.cctv-detection-icon {
-  width: 60px;
-  height: 60px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0 auto 10px;
 }
 
 .cctv-progress-bar-container {
@@ -273,16 +186,4 @@
 
 .cctv-text_1 {
   font-weight: 700;
-}
-
-.cctv-detection-footer .cctv-helmet {
-  background-image: url('../assets/images/helmet.png');
-}
-
-.cctv-detection-footer .cctv-danger {
-  background-image: url('../assets/images/danger.png');
-}
-
-.cctv-detection-footer .cctv-speed {
-  background-image: url('../assets/images/speed.png');
 }

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate를 import합니다.
+import { useNavigate } from 'react-router-dom';
 import '../styles/VideoAnalysisPage.css';
 import sampleImage from '../assets/images/sample_video.png';
 import helmetIcon from '../assets/images/helmet.png';
@@ -15,7 +15,7 @@ import DetectedVehicleList from '../components/DetectedVehicleList';
 function VideoAnalysisPage() {
   const [uploadedVideo, setUploadedVideo] = useState(null);
   const [videoURL, setVideoURL] = useState('');
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 얻습니다.
+  const navigate = useNavigate();
   const mainVideoRef = useRef(null);
   const originalVideoRef = useRef(null);
   const detectionVideoRefs = useRef([]);
@@ -98,9 +98,8 @@ function VideoAnalysisPage() {
   }, [videoURL]);
 
   const handleCCTVClick = () => {
-    navigate('/live-cctv'); // cctvIcon 클릭 시 '/live-cctv' 경로로 이동합니다.
+    navigate('/live-cctv');
   };
-
 
   return (
     <div className="analysis-page">
@@ -108,17 +107,16 @@ function VideoAnalysisPage() {
         <img src={video} alt="로고" className="logo" />
         <h2 className="text_1">업로드영상 분석</h2>
         <ul className="record-list">
-          <li className="menu-item" onClick={() => navigate('/record-db')}> {/* 클릭 시 navigate 사용 */}
+          <li className="menu-item" onClick={() => navigate('/record-db')}>
             <img src={recordDBIcon} alt="단속기록 DB" className="recordDBIcon" />
             <span className="record_text">단속기록 DB</span>
           </li>
-          <li className="menu-item" onClick={handleCCTVClick}> {/* cctvIcon 클릭 시 handleCCTVClick 실행 */}
+          <li className="menu-item" onClick={handleCCTVClick}>
             <img src={cctvIcon} alt="실시간 CCTV 전환" className="cctvIcon" />
             <span className="cctv_text">실시간 CCTV 전환</span>
           </li>
         </ul>
         <img src={bikeIcon} alt="오토바이 아이콘" className="bike-icon" />
-        
       </div>
 
       <div className="main-content">
