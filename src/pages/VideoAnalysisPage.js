@@ -2,9 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/VideoAnalysisPage.css';
 import sampleImage from '../assets/images/sample_video.png';
-import helmetIcon from '../assets/images/helmet.png';
-import dangerIcon from '../assets/images/danger.png';
-import speedIcon from '../assets/images/speed.png';
 import video from '../assets/images/video_big.png';
 import recordDBIcon from '../assets/images/db.png';
 import cctvIcon from '../assets/images/cctv_small.png';
@@ -15,45 +12,38 @@ import DetectedVehicleList from '../components/DetectedVehicleList';
 function VideoAnalysisPage() {
   const [uploadedVideo, setUploadedVideo] = useState(null);
   const [videoURL, setVideoURL] = useState('');
+  const [detectedVehicles, setDetectedVehicles] = useState([]);
   const navigate = useNavigate();
   const mainVideoRef = useRef(null);
   const originalVideoRef = useRef(null);
   const detectionVideoRefs = useRef([]);
 
-  const detectedVehicles = [
-    {
-      id: 1,
-      type: '헬멧미착용',
-      icon: helmetIcon,
-      licensePlate: '가1234',
-      time: '2024-08-10 22:04:45',
-      video: videoURL,
-    },
-    {
-      id: 2,
-      type: '위험운전',
-      icon: dangerIcon,
-      licensePlate: '나5678',
-      time: '2024-08-10 22:05:30',
-      video: videoURL,
-    },
-    {
-      id: 3,
-      type: '과속운전',
-      icon: speedIcon,
-      licensePlate: '다9101',
-      time: '2024-08-10 22:06:15',
-      video: videoURL,
-    },
-    {
-      id: 4,
-      type: '과속운전',
-      icon: speedIcon,
-      licensePlate: '라9101',
-      time: '2024-08-10 22:06:15',
-      video: videoURL,
-    },
-  ];
+  useEffect(() => {
+    // 백엔드에서 기록 데이터를 가져오는 API 호출
+    const fetchDetectedVehicles = async () => {
+      try {
+        const token = localStorage.getItem('token');  // 저장된 토큰 가져오기
+        const response = await fetch('http://localhost:8080/record', {
+          headers: {
+            // 'Authorization': `Bearer ${token}`  // Authorization 헤더에 토큰 추가
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzNmZTgwZTM4OTVjYjVjMTM2OTMyZSJ9._xtHfwaVOOJLilzauhdnuOMhB-xwJ3jPY4C9LjFk90k`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          // 데이터를 가져온 후 상태로 설정
+          setDetectedVehicles(data);
+        } else {
+          console.error('데이터를 가져오는 중 오류 발생:', response.statusText);
+        }
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchDetectedVehicles(); // 컴포넌트 마운트 시 데이터 가져오기
+  }, []);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];

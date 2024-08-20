@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate를 import합니다.
-
-import '../styles/LiveCCTVPage.css'; // 새로운 CSS 파일을 import합니다.
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../styles/LiveCCTVPage.css';
 import sampleImage from '../assets/images/sample_video.png';
-import helmetIcon from '../assets/images/helmet.png';
-import dangerIcon from '../assets/images/danger.png';
-import speedIcon from '../assets/images/speed.png';
 import recordDBIcon from '../assets/images/db.png';
 import cctvIcon_big from '../assets/images/cctv_big.png';
 import video_small from '../assets/images/video_small.png';
@@ -15,60 +11,74 @@ import DetectedVehicleList from '../components/DetectedVehicleList';
 
 function LiveCCTVPage() {
   const [cctvVideoURL, setCctvVideoURL] = useState('');
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 얻습니다.
-
-  const detectedVehicles = [
-    {
-      id: 1,
-      type: '헬멧미착용',
-      icon: helmetIcon,
-      licensePlate: '가1234',
-      time: '2024-08-10 22:04:45',
-      video: cctvVideoURL, // CCTV 영상의 URL을 사용합니다.
-    },
-    {
-      id: 2,
-      type: '위험운전',
-      icon: dangerIcon,
-      licensePlate: '나5678',
-      time: '2024-08-10 22:05:30',
-      video: cctvVideoURL,
-    },
-    {
-      id: 3,
-      type: '과속운전',
-      icon: speedIcon,
-      licensePlate: '다9101',
-      time: '2024-08-10 22:06:15',
-      video: cctvVideoURL,
-    },
-    {
-      id: 4,
-      type: '과속운전',
-      icon: speedIcon,
-      licensePlate: '라9101',
-      time: '2024-08-10 22:06:15',
-      video: cctvVideoURL,
-    },
-  ];
+  const [detectedVehicles, setDetectedVehicles] = useState([]);
+  const navigate = useNavigate();
+  const mainVideoRef = useRef(null);
+  const originalVideoRef = useRef(null); // originalVideoRef를 정의합니다.
+  const detectionVideoRefs = useRef([]);
 
   useEffect(() => {
-    // 여기에 CCTV 데이터를 API로부터 가져오는 코드를 작성합니다.
-    // 예시로, CCTV 영상의 URL을 가져온다고 가정하겠습니다.
-    async function fetchCCTVData() {
+    // CCTV 데이터를 백엔드에서 가져옵니다.
+    const fetchCCTVData = async () => {
       try {
-        // 예시 URL, 실제 API 엔드포인트로 변경해야 합니다.
-        const response = await fetch('https://api.example.com/cctv-url');
-        const data = await response.json();
-        setCctvVideoURL(data.url); // 받아온 CCTV 영상 URL을 저장합니다.
+        const token = localStorage.getItem('token');  // 저장된 토큰 가져오기
+        const response = await fetch('http://localhost:8080/record', {
+          headers: {
+            // 'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzNmZTgwZTM4OTVjYjVjMTM2OTMyZSJ9._xtHfwaVOOJLilzauhdnuOMhB-xwJ3jPY4C9LjFk90k`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          // 데이터를 가져온 후 상태로 설정
+          setDetectedVehicles(data);
+          if (data.length > 0) {
+            setCctvVideoURL(data[0].video);  // 첫 번째 기록의 비디오 URL 사용
+          }
+        } else {
+          console.error('데이터를 가져오는 중 오류 발생:', response.statusText);
+        }
       } catch (error) {
-        console.error('CCTV 데이터를 가져오는데 실패했습니다.', error);
-        setCctvVideoURL(''); // CCTV 데이터를 가져오지 못했을 경우 빈 문자열로 설정
+        console.error('데이터를 가져오는 중 오류 발생:', error);
       }
+    };
+
+    fetchCCTVData(); // 컴포넌트 마운트 시 데이터 가져오기
+  }, []);
+
+  const syncVideos = (action) => {
+    if (action === 'play') {
+      if (originalVideoRef.current) originalVideoRef.current.play();
+      detectionVideoRefs.current.forEach((video) => {
+        if (video) video.play();
+      });
+    } else if (action === 'pause') {
+      if (originalVideoRef.current) originalVideoRef.current.pause();
+      detectionVideoRefs.current.forEach((video) => {
+        if (video) video.pause();
+      });
+    }
+  };
+
+  useEffect(() => {
+    const mainVideoElement = mainVideoRef.current;
+
+    const handlePlay = () => syncVideos('play');
+    const handlePause = () => syncVideos('pause');
+
+    if (mainVideoElement) {
+      mainVideoElement.addEventListener('play', handlePlay);
+      mainVideoElement.addEventListener('pause', handlePause);
     }
 
-    fetchCCTVData();
-  }, []);
+    return () => {
+      if (mainVideoElement) {
+        mainVideoElement.removeEventListener('play', handlePlay);
+        mainVideoElement.removeEventListener('pause', handlePause);
+      }
+    };
+  }, [cctvVideoURL]);
 
   const handleVideoUploadClick = () => {
     navigate('/analysis'); // 영상업로드 전환 버튼 클릭 시 '/analysis' 경로로 이동합니다.
@@ -80,11 +90,11 @@ function LiveCCTVPage() {
         <img src={cctvIcon_big} alt="로고" className="cctv-logo" />
         <h2 className="cctv-text_1">실시간 CCTV</h2>
         <ul className="cctv-record-list">
-          <li className="cctv-menu-item" onClick={() => navigate('/record-db')}> {/* 클릭 시 navigate 사용 */}
+          <li className="cctv-menu-item" onClick={() => navigate('/record-db')}>
             <img src={recordDBIcon} alt="단속기록 DB" className="cctv-recordDBIcon" />
             <span className="cctv-record_text">단속기록 DB</span>
           </li>
-          <li className="cctv-menu-item" onClick={handleVideoUploadClick}> {/* 클릭 시 handleVideoUploadClick 실행 */}
+          <li className="cctv-menu-item" onClick={handleVideoUploadClick}>
             <img src={video_small} alt="영상업로드 전환" className="cctv-video_small" />
             <span className="cctv-cctv_text">영상업로드 전환</span>
           </li>
@@ -100,7 +110,7 @@ function LiveCCTVPage() {
           </div>
           <div className="cctv-video-container-video-page">
             {cctvVideoURL ? (
-              <video className="cctv-video-frame" controls>
+              <video ref={mainVideoRef} className="cctv-video-frame" controls>
                 <source src={cctvVideoURL} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
@@ -115,7 +125,7 @@ function LiveCCTVPage() {
           <div className="cctv-video-thumbnail">
             <h3>원본영상</h3>
             {cctvVideoURL ? (
-              <video className="cctv-thumbnail" controls>
+              <video ref={originalVideoRef} className="cctv-thumbnail" controls>
                 <source src={cctvVideoURL} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
@@ -125,7 +135,7 @@ function LiveCCTVPage() {
           </div>
           <DetectedVehicleList 
             detectedVehicles={detectedVehicles} 
-            detectionVideoRefs={[]} // 빈 배열로 설정 (해당 부분이 필요할 경우 변경 가능)
+            detectionVideoRefs={detectionVideoRefs} 
             sampleImage={sampleImage} 
           />
         </div>
