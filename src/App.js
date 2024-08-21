@@ -4,15 +4,38 @@ import MainPage from './pages/MainPage';
 import VideoAnalysisPage from './pages/VideoAnalysisPage';
 import LiveCCTVPage from './pages/LiveCCTVPage';
 import RecordDBPage from './pages/RecordDBPage';
+import LoginPage from './pages/LoginPage.js';
+import SignupPage from './pages/SignupPage.js';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/analysis" element={<VideoAnalysisPage />} />
-        <Route path="/live-cctv" element={<LiveCCTVPage />} /> 
-        <Route path="/record-db" element={<RecordDBPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        
+        {/* 보호된 경로 */}
+        <Route path="/" element={
+          <ProtectedRoute>
+            <MainPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/analysis" element={
+          <ProtectedRoute>
+            <VideoAnalysisPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/live-cctv" element={
+          <ProtectedRoute>
+            <LiveCCTVPage />
+          </ProtectedRoute>
+        } /> 
+        <Route path="/record-db" element={
+          <ProtectedRoute>
+            <RecordDBPage />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );

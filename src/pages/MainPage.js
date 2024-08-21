@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/MainPage.css';
 import motorcycleIcon from '../assets/images/motorcycle.png';
 import helmetIcon from '../assets/images/helmet.png';
@@ -8,6 +8,7 @@ import speedIcon from '../assets/images/speed.png';
 
 function MainPage() {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -29,6 +30,11 @@ function MainPage() {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
     return `${hours} : ${minutes} : ${seconds}`;
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // 로컬 스토리지에서 JWT 토큰 제거
+    navigate('/login'); // 로그인 페이지로 리다이렉트
   };
 
   return (
@@ -61,6 +67,7 @@ function MainPage() {
       <Link to="/analysis">
         <button className="start-button">시작하기 →</button>
       </Link>
+      <button className="logout-button" onClick={handleLogout}>로그아웃</button>
     </div>
   );
 }
