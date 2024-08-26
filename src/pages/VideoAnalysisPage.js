@@ -13,27 +13,70 @@ function VideoAnalysisPage() {
   const [uploadedVideo, setUploadedVideo] = useState(null);
   const [videoURL, setVideoURL] = useState('');
   const [detectedVehicles, setDetectedVehicles] = useState([]);
+  const [detectionSummary, setDetectionSummary] = useState({
+    totalFrames: 0,
+    totalNoHelmet: 0,
+    totalOkHelmet: 0,
+    framesWithNoHelmet: 0,
+    averageNoHelmetPerFrame: 0,
+    averageOkHelmetPerFrame: 0,
+    percentFramesWithNoHelmet: 0
+  });
   const navigate = useNavigate();
   const mainVideoRef = useRef(null);
   const originalVideoRef = useRef(null);
   const detectionVideoRefs = useRef([]);
 
+  const processDetectionData = (data) => {
+    let totalFrames = data.length;
+    let totalNoHelmet = 0;
+    let totalOkHelmet = 0;
+    let framesWithNoHelmet = 0;
+
+    const processedData = data.map((frame, index) => {
+      const noHelmet = frame.no_helmets || 0;  // 'no_helmets'로 변경
+      const okHelmet = frame.ok_helmets || 0;  // 'ok_helmets'로 변경
+      
+      totalNoHelmet += noHelmet;
+      totalOkHelmet += okHelmet;
+      if (noHelmet > 0) framesWithNoHelmet++;
+
+      return {
+        frame: index + 1,
+        noHelmet: noHelmet,
+        okHelmet: okHelmet,
+        totalDetections: noHelmet + okHelmet,
+      };
+    });
+
+    const summary = {
+      totalFrames,
+      totalNoHelmet,
+      totalOkHelmet,
+      framesWithNoHelmet,
+      averageNoHelmetPerFrame: totalNoHelmet / totalFrames,
+      averageOkHelmetPerFrame: totalOkHelmet / totalFrames,
+      percentFramesWithNoHelmet: (framesWithNoHelmet / totalFrames) * 100
+    };
+
+    return { processedData, summary };
+  };
+
   useEffect(() => {
-    // 백엔드에서 기록 데이터를 가져오는 API 호출
     const fetchDetectedVehicles = async () => {
       try {
-        const token = localStorage.getItem('token');  // 저장된 토큰 가져오기
+        const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:8080/record', {
           headers: {
-            // 'Authorization': `Bearer ${token}`  // Authorization 헤더에 토큰 추가
             'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzNmZTgwZTM4OTVjYjVjMTM2OTMyZSJ9._xtHfwaVOOJLilzauhdnuOMhB-xwJ3jPY4C9LjFk90k`
           }
         });
 
         if (response.ok) {
           const data = await response.json();
-          // 데이터를 가져온 후 상태로 설정
-          setDetectedVehicles(data);
+          const { processedData, summary } = processDetectionData(data);
+          setDetectedVehicles(processedData);
+          setDetectionSummary(summary);
         } else {
           console.error('데이터를 가져오는 중 오류 발생:', response.statusText);
         }
@@ -42,15 +85,38 @@ function VideoAnalysisPage() {
       }
     };
 
-    fetchDetectedVehicles(); // 컴포넌트 마운트 시 데이터 가져오기
+    fetchDetectedVehicles();
   }, []);
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const newVideoURL = URL.createObjectURL(file);
       setUploadedVideo(file.name);
       setVideoURL(newVideoURL);
+
+      const formData = new FormData();
+      formData.append('video', file);
+
+      try {
+        const response = await fetch('http://localhost:8080/detect', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('분석 결과:', data);
+
+          const { processedData, summary } = processDetectionData(data);
+          setDetectedVehicles(processedData);
+          setDetectionSummary(summary);
+        } else {
+          console.error('분석 중 오류 발생:', response.statusText);
+        }
+      } catch (error) {
+        console.error('분석 중 오류 발생:', error);
+      }
     }
   };
 
@@ -141,7 +207,11 @@ function VideoAnalysisPage() {
               <span>04:32 / 08:00</span>
             </div>
           </div>
-          <DetectionFooter helmetCount={'04'} dangerCount={'01'} speedCount={2} />
+          <DetectionFooter 
+            helmetCount={detectionSummary.totalNoHelmet}
+            dangerCount={detectionSummary.framesWithNoHelmet} 
+            speedCount={detectionSummary.totalFrames} 
+          />
         </div>
 
         <div className="right-sidebar">
