@@ -67,8 +67,6 @@ uvicorn main:app --host 0.0.0.0 --port 8080 --reload
 ![917ab1cda90918ceb58074243b46922f-12](https://github.com/user-attachments/assets/1c42a12e-8434-4057-ac48-771190fa1651)
 ![917ab1cda90918ceb58074243b46922f-13](https://github.com/user-attachments/assets/8584455b-7592-469b-ae65-f44651e31e58)
 ![917ab1cda90918ceb58074243b46922f-14](https://github.com/user-attachments/assets/2b745df2-e2d5-41c7-82e2-12519adf75df)
-![917ab1cda90918ceb58074243b46922f-15](https://github.com/user-attachments/assets/7ee7af6c-52f9-4a2c-9ac6-d4f07fba6721)
-![917ab1cda90918ceb58074243b46922f-16](https://github.com/user-attachments/assets/fb45a377-141d-4c70-993f-4d14d943dd7c)
 ![917ab1cda90918ceb58074243b46922f-17](https://github.com/user-attachments/assets/71933b91-fc70-4641-9975-01819cdd980f)
  
  </details>
