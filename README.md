@@ -17,7 +17,66 @@
 * 다양한 위험 행위 감지: 헬멧 미착용뿐만 아니라 앞바퀴 들기, 지그재그 운전, 횡단보도 침범 등 다양한 위험 운전 패턴을 감지할 수 있습니다.
 * 적응형 데이터 증강: 다양한 환경과 조건에서 정확한 감지를 위해 데이터 증강 기법을 적용하여 모델의 신뢰성을 높였습니다.
 
+### 작성자 기여도
+* 아이디어 회의 진행
+* 팀원별 업무 분담
+* 코드 리뷰
+* 모델과 데이터셋 탐색, 선정
+* 기능 유지보수
+* 딥러닝 모델 API 구현현
+* 웹소켓 통신 기능 구현, 최적화 작업
+
 ### 사용
+
+* Model Learning
+
+```python3
+## 이상행동 감지 model
+
+model = YOLO("yolov8n.pt")
+data_yaml = "data.yaml"
+
+model.train(
+    data=data_yaml,  
+    epochs=100,     
+    imgsz=640,      
+    batch=16,        
+    workers=4,       
+    name='danger_drivingv3',  
+)
+
+## data.yaml
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['ab_danger_cornering', 'ab_wheelie', 'abnormal', 'normal']
+
+roboflow:
+  workspace: 2klips
+  project: bike_danger_driving
+  version: 3
+  license: Public Domain
+  url: https://universe.roboflow.com/2klips/bike_danger_driving/dataset/3
+```
+```python3
+## 헬멧 미착용 감지 model
+
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['ab_danger_cornering', 'ab_wheelie', 'abnormal', 'normal']
+
+roboflow:
+  workspace: 2klips
+  project: bike_danger_driving
+  version: 3
+  license: Public Domain
+  url: https://universe.roboflow.com/2klips/bike_danger_driving/dataset/3
+```
 
 * 프론트엔드
 
